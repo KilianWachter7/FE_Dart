@@ -1,52 +1,37 @@
 import React, { useEffect, useState } from "react";
 import io, { Socket } from "socket.io-client";
 import { CurrentStanding } from './CurrentStanding'
-
+import { VirtualDartBoard } from "./VirtaulDartBoard";
 
 export interface gameInfo {
-  game:{
-  Spielmodus: Number;
-  double_out: Boolean;
-  double_in: Boolean;
-  numberOfPlayers: Number;
-  currentPlayer: Number;
-};
-player1:
-{
-  name: String;
-  currentScore: Number;
-  am_zug: Boolean;
-  last3Point: [];
-  last3Multiplier: [];
-  average: Number;
-};
-player2:
-{
-  name: String;
-  currentScore: Number;
-  am_zug: Boolean;
-  last3Point: [];
-  last3Multiplier: [];
-  average: Number;
-};
-player3:
-{
-  name: String;
-  currentScore: Number;
-  am_zug: Boolean;
-  last3Point: [];
-  last3Multiplier: [];
-  average: Number;
-};
-player4:
-{
-  name: String;
-  currentScore: Number;
-  am_zug: Boolean;
-  last3Point: [];
-  last3Multiplier: [];
-  average: Number;
-}}
+  player0: {
+    spieler: String,
+    id: Number,
+    spielstand: Number,
+    last_3: [[], [], []],
+    cords: [[], [], []],
+    finish_weg: [],
+    average: Number
+  },
+  player1: {
+    spieler: String,
+    id: Number,
+    spielstand: Number,
+    last_3: [[], [], []],
+    cords: [],
+    finish_weg: [],
+    average: Number
+  },
+  settings: {
+    spielmodus: Number,
+    double_in: Boolean,
+    double_out: Boolean,
+    currentPlayer: Number,
+    playerCounter: number,
+    x_max: Number,
+    y_max: Number
+  }
+}
 
 
 export const Websocket = () => {
@@ -81,12 +66,12 @@ export const Websocket = () => {
   return (
     <div>
       {message ? (<div>
-        {/* <h1>{message}</h1> */}
+        <VirtualDartBoard result={message.player0.last_3} coordinates={message.player0.cords}/>
         <p>Received message: {JSON.stringify(message)}</p>
-        {message.game.numberOfPlayers > 0 && <CurrentStanding id={"eins"} name={message.player1.name} currentScore={message.player1.currentScore} am_zug={message.player1.am_zug} last3Point={message.player1.last3Point} last3Multiplier={message.player1.last3Multiplier} average={message.player1.average} />}
-        {message.game.numberOfPlayers > 1 && <CurrentStanding id={"zwei"} name={message.player2.name} currentScore={message.player2.currentScore} am_zug={message.player2.am_zug} last3Point={message.player2.last3Point} last3Multiplier={message.player2.last3Multiplier} average={message.player2.average} />}
-        {message.game.numberOfPlayers > 2 && <CurrentStanding id={"drei"} name={message.player3.name} currentScore={message.player3.currentScore} am_zug={message.player3.am_zug} last3Point={message.player3.last3Point} last3Multiplier={message.player3.last3Multiplier} average={message.player3.average} />}
-        {message.game.numberOfPlayers > 3 && <CurrentStanding id={"vier"} name={message.player4.name} currentScore={message.player4.currentScore} am_zug={message.player4.am_zug} last3Point={message.player4.last3Point} last3Multiplier={message.player4.last3Multiplier} average={message.player4.average} />}
+        {message.settings.playerCounter > 0 && <CurrentStanding id={"eins"} name={message.player0.spieler} currentScore={message.player0.spielstand} last3Point={message.player0.last_3} coordinaten={message.player0.cords} average={message.player0.average} />}
+        {message.settings.playerCounter > 1 && <CurrentStanding id={"zwei"} name={message.player1.spieler} currentScore={message.player1.spielstand} last3Point={message.player1.last_3} coordinaten={message.player1.cords} average={message.player1.average} />}
+        {/* {message.settings.playerCounter > 2 && <CurrentStanding id={"drei"} name={message.player2.spieler} currentScore={message.player2.spielstand} last3Point={message.player2.last_3} coordinaten={message.player2.cords} average={message.player2.average} />}
+        {message.settings.playerCounter > 3 && <CurrentStanding id={"vier"} name={message.player3.spieler} currentScore={message.player3.spielstand} last3Point={message.player3.last_3} coordinaten={message.player3.cords} average={message.player3.average} />} */}
         </div>
       ) : (
         <p>Waiting for WebSocket message...</p>

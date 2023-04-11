@@ -1,6 +1,5 @@
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonButtons, IonBackButton } from '@ionic/react'
 import React, { useRef, useState } from 'react'
-import { RouteComponentProps } from 'react-router'
 import { VirtualDartBoard } from './VirtaulDartBoard'
 import { Websocket } from "./Websocket"
 import { DartPosition } from './DartPosition'
@@ -30,12 +29,12 @@ export const BackendCall = () => {
       <IonContent className="ion-padding">
       <div className='boxVirtualDartBoard'>
         <div className='virtualDartBoard'>
-          <VirtualDartBoard/>
+          {/* <VirtualDartBoard result={["D12", "T13", "B"]}/> */}
           <Websocket />
         </div>
-        <div className='dartPosition' style={{top: xCoordDart, left: yCoordDart}}>
+        {/* <div className='dartPosition' style={{top: xCoordDart, left: yCoordDart}}>
           <DartPosition />
-        </div>
+        </div> */}
       </div>
       </IonContent>
     </IonPage>

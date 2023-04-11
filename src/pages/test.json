@@ -1,0 +1,3 @@
+{"player0": {"spieler": "marc", "id": 0, "spielstand": 472, "last_3": [[6, 1], [7, 1], [16, 1]], "cords": [[702.2520678330243, 430.9088389642911], [268.75935795292895, 617.4558294043984], [176.4315854180158, 542.097117253008]], "finish_weg": [null, null, null], "average": 0},
+"player1": {"spieler": "kw", "id": 1, "spielstand": 501, "last_3": [[null, null], [null, null], [null, null]], "cords": [null], "finish_weg": [null, null, null], "average": 0},
+"settings": {"spielmodus": 501, "double_in": "False", "double_out": "True", "currentPlayer": 1, "playerCounter": 2, "x_max": 800, "y_max": 800}}
