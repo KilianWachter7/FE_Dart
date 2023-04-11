@@ -1,0 +1,22 @@
+.hit {
+  fill: blue;
+}
+.doubleGreen{
+  fill: #00a000
+}
+
+.singleGreen{
+  fill: #E7E4C7
+}
+.singleRed{
+  fill: black
+}
+
+.doubleRed{
+  fill: #FF0000
+}
+
+.line {
+  stroke: black;
+  stroke-width: 1px;
+}

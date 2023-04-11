@@ -4,7 +4,7 @@ import { IonRouterOutlet, IonPage, IonTabs, IonTabBar, IonTabButton, IonIcon, Io
 import { home, apps, settings, gameController } from 'ionicons/icons'
 import { Home } from './pages/Home'
 import { Settings } from './pages/Settings'
-import { Backend } from './pages/Backend'
+import { BackendCall } from './pages/BackendCall'
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css'
@@ -33,7 +33,7 @@ export const App: React.FunctionComponent<RouteComponentProps> = props => {
         <IonRouterOutlet>
           <Route path="/home" component={Home} exact />
           <Route path="/about" component={Settings} exact />
-          <Route path="/backend" component={Backend} exact />
+          <Route path="/backend" component={BackendCall} exact />
           <Redirect exact from="/" to="/home" />
         </IonRouterOutlet>
         

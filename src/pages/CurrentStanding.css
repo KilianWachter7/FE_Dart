@@ -1,0 +1,26 @@
+ion-col {
+  background-color: #135d54;
+  border: solid 1px #fff;
+  color: #fff;
+  text-align: center;
+}
+
+
+#currentPlayer {
+  --background: #17c3f8;
+  --color: #9efff0;
+}
+
+#notCurrentPlayer
+{
+  --background: #b0bbbb;
+  --color: #9efff0;
+}
+
+/* ion-card-title {
+  --color: #52ffe4;
+}
+
+ion-card-subtitle {
+  --color: #d1fff8;
+} */
