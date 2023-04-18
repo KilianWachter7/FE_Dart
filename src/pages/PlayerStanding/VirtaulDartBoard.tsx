@@ -4,47 +4,67 @@ import { DartPosition } from './DartPosition';
 
 export const VirtualDartBoard = (props) => {
 
+    // Berechnung der aktuellen Fenstergröße
     const windowSize = useRef([window.innerWidth, window.innerHeight]);
-
     const currentWindowWidth = windowSize.current[0]
-    const schwarzerRand = (currentWindowWidth - 32) * 0.121
+    const schwarzerRand = (currentWindowWidth - 32) * 0.12235649546827795
     const coorMax = currentWindowWidth - 32
 
-
     const calculateCoordsX = (coord) => {
-        return (coord / 800 * coorMax - 8) * 0.75 + schwarzerRand
+        // return (coord / props.maxBEcoordsX * coorMax - 8) * 0.75 + schwarzerRandX
+        // return (400 / props.maxBEcoordsX * coorMax) * (0.12235649546827795 * 6) + schwarzerRandX
+        return (coord / props.maxBEcoordsX * coorMax) * (0.12235649546827795 * 6) + schwarzerRand - 10
+
     }
     const calculateCoordsY = (coord) => {
-        return (coord / 800 * coorMax - 8) * 0.75 + schwarzerRand
+        // return (coord / props.maxBEcoordsY * coorMax - 8) * 0.75 + schwarzerRandY
+        return (coord / props.maxBEcoordsY * coorMax) * (0.12235649546827795 * 6) + schwarzerRand - 10
     }
 
-    const multii = ["Test", "SO", "D", "T", "B", "SB"];
+    const multii = ["Test", "SO", "D", "T", "SB", "B"];
     
-    const berechneInnenAussen = (multi, order) => {
-        if (multi == 1) {
-            const mittelY = Math.abs(props.coordinates[order][1] - 400)
-            console.log("Ergebnis", props.coordinates[order][1])
+    const calculateInnOut = (multiplication, throwOrder, score) => {
+        if (score == 25) {
+            if (multiplication == 1) {
+                return multii[4]
+            }
+            return multii[5]
+        } else {
+            if (multiplication == 1) {
+                const mittelY = Math.abs(props.coordinates[throwOrder][1] - 400)
+                const mittelX = Math.abs(props.coordinates[throwOrder][0] - 400)
+                const erg = Math.sqrt(mittelX * mittelX + mittelY * mittelY)
+                if (erg < 250) {
+                    console.log("single In", multiplication, throwOrder, score)                
+                    return "SI"
+                } else {
+                    console.log("single Out", multiplication, throwOrder, score)                
+                    return "SO"
+                }
+            }
+            return multii[hit[throwOrder][1]]
+        }
+        
+    }
 
-            const mittelX = Math.abs(props.coordinates[order][0] - 400)
-            console.log("Ergebnis", mittelY)
-
-            const erg = Math.sqrt(mittelX * mittelX + mittelY * mittelY)
-            console.log("Ergebnis", erg)
-            if (erg < 250) {
-                return "SI"
-            }else{
-                return "SO"
+    const makeScoreString = (dartThrow, testUndefined, testLength) => {
+        if (testUndefined) {
+            return null
+        } else{
+            if(testLength){
+                return null
             }
         }
-        console.log("Multi", multi[hit[order][1]]) 
-        return multii[hit[order][1]]
+        if (hit[dartThrow][0] == 25) {
+        return calculateInnOut(hit[dartThrow][1], dartThrow, hit[dartThrow][0])
+        }
+        return calculateInnOut(hit[dartThrow][1], dartThrow, hit[dartThrow][0])+hit[dartThrow][0]
     }
 
     // Möglichkeinten: SI, SO, D, T, B, SB
     const hit = props.result;
-    const zusammen = [berechneInnenAussen(hit[0][1], 0)+hit[0][0], berechneInnenAussen(hit[1][1], 1)+hit[1][0], berechneInnenAussen(hit[2][1], 2)+hit[2][0]]
-    console.log("Hit", hit)
-    console.log("zusammen", zusammen)
+    const zusammen = [makeScoreString(0, hit == undefined, false), makeScoreString(1, hit == undefined, hit.length < 2), makeScoreString(2, hit == undefined, hit.length < 3)]
+
 
     const isHit = (field) => {
         for (let i = 0; i < zusammen.length; i++) {
@@ -57,13 +77,13 @@ export const VirtualDartBoard = (props) => {
 
     return (
         <div>
-            {props.coordinates[0][0] != null && <div className='dartPosition' style={{top: calculateCoordsX(props.coordinates[0][1]), left: calculateCoordsY(props.coordinates[0][0])}}>
+            {props.coordinates != undefined && props.coordinates[0][0] != null && <div className='dartPosition' style={{top: calculateCoordsX(props.coordinates[0][1]), left: calculateCoordsY(props.coordinates[0][0])}}>
                 <DartPosition />
             </div>}
-            {props.coordinates[1][0] != null && <div className='dartPosition' style={{top: calculateCoordsX(props.coordinates[1][1]), left: calculateCoordsY(props.coordinates[1][0])}}>
+            {props.coordinates != undefined && props.coordinates.length > 1 &&  props.coordinates[1][0] != null &&<div className='dartPosition' style={{top: calculateCoordsX(props.coordinates[1][1]), left: calculateCoordsY(props.coordinates[1][0])}}>
                 <DartPosition />
             </div>}
-            {props.coordinates[2][0] != null && <div className='dartPosition' style={{top: calculateCoordsX(props.coordinates[2][1]), left: calculateCoordsY(props.coordinates[2][0])}}>
+            {props.coordinates != undefined && props.coordinates.length > 2 && props.coordinates[2][0] != null && <div className='dartPosition' style={{top: calculateCoordsX(props.coordinates[2][1]), left: calculateCoordsY(props.coordinates[2][0])}}>
                 <DartPosition />
             </div>}
             
@@ -80,7 +100,7 @@ export const VirtualDartBoard = (props) => {
                                 <path d="M453.5,227 C453.5,352.092496 352.092496,453.5 227,453.5 C101.907504,453.5 0.5,352.092496 0.5,227 C0.5,101.907504 101.907504,0.5 227,0.5 C352.092496,0.5 453.5,101.907504 453.5,227 L453.5,227 Z" id="path1307"></path>
                             </g>
                             <g id="Inside-Spider" transform="translate(50.000000, 51.000000)" stroke="#D0EDFD">
-                            <path d="M347.55,176 C347.55,270.192164 271.192164,346.55 177,346.55 C82.8078359,346.55 6.45,270.192164 6.45,176 C6.45,81.8078359 82.8078359,5.45 177,5.45 C271.192164,5.45 347.55,81.8078359 347.55,176 L347.55,176 Z" id="DoubleRed" stroke-width="1.10000002" fill="red"></path>
+                <path d="M347.55,176 C347.55,270.192164 271.192164,346.55 177,346.55 C82.8078359,346.55 6.45,270.192164 6.45,176 C6.45,81.8078359 82.8078359,5.45 177,5.45 C271.192164,5.45 347.55,81.8078359 347.55,176 L347.55,176 Z" id="DoubleRed" stroke-width="1.10000002" fill="red"></path>
                                 <path d="M338.45,176 C338.45,265.166373 266.166373,337.45 177,337.45 C87.8336271,337.45 15.55,265.166373 15.55,176 C15.55,86.8336271 87.8336271,14.55 177,14.55 C266.166373,14.55 338.45,86.8336271 338.45,176 L338.45,176 Z" id="path2195" stroke-width="1.10000002" fill="black"></path>
                                 <path d="M284.55,176 C284.55,235.398225 236.398225,283.55 177,283.55 C117.601775,283.55 69.45,235.398225 69.45,176 C69.45,116.601775 117.601775,68.45 177,68.45 C236.398225,68.45 284.55,116.601775 284.55,176 L284.55,176 Z" id="TrebleRed" stroke-width="1.10000002" fill="red"></path>
                                 <path d="M275.449997,176 C275.449998,211.172797 256.685534,243.673801 226.224999,261.2602 C195.764464,278.846598 158.235536,278.846598 127.775001,261.2602 C97.3144658,243.673801 78.5500025,211.172797 78.550003,176 C78.5500023,140.827203 97.3144655,108.326198 127.775001,90.7397999 C158.235536,73.1534013 195.764464,73.1534013 226.224999,90.7397999 C256.685534,108.326198 275.449998,140.827203 275.449997,176 L275.449997,176 Z" id="path2197" stroke-width="1.10000002" fill="yellow"></path>
@@ -107,7 +127,6 @@ export const VirtualDartBoard = (props) => {
                                     <use className={isHit("D13") ? "hit" : "doubleRed"}><path d="M151.25,8 L152.5,16 C152.5,16 175,12 202,16 L203,8 C203,8 177,4 151.25,8Z" transform="translate(151.25, 8) rotate(72) translate(-151.25, -8) translate(142, -141)" id="path8"></path></use>
                                     <use className={isHit("D18") ? "hit" : "doubleRed"}><path d="M151.25,8 L152.5,16 C152.5,16 175,12 202,16 L203,8 C203,8 177,4 151.25,8Z" transform="translate(151.25, 8) rotate(36) translate(-151.25, -8) translate(94, -47)" id="path8"></path></use>
 
-
                                 </g>
                                 <g id="SingleOuterGreen" transform="translate(10.000000, 9.000000)">
                                 <use className={isHit("SO5") ? "hit" : "singleGreen"}>     <path d="M234.303197,58.8030972 C234.303195,75.744955 231.636588,92.5812373 226.401265,108.693901 L72.8531647,58.8030972 L234.303197,58.8030972 Z" id="path4878" stroke-width="1.10000024" transform="translate(153.578181, 83.748499) rotate(-116.999962) translate(-153.578181, -83.748499) "></path></use>
@@ -123,14 +142,14 @@ export const VirtualDartBoard = (props) => {
                                 
                                 <use className={isHit("SO20") ? "hit" : "singleRed"}>       <path d="M143,8 L151,62 C151,62 166,58 183,62 L192,8 C192,8 164,3 143,8 Z" ></path></use>
                                 <use className={isHit("SO12") ? "hit" : "singleRed"}>       <path d="M143,8 L151,62 C151,62 166,58 183,62 L192,8 C192,8 164,3 143,8 Z" transform="translate(151.25, 8) rotate(-36) translate(-151.25, -8) translate(-96.5, -21.5)" id="path1"></path></use>
-                                <use className={isHit("S14") ? "hit" : "singleRed"}>        <path d="M143,8 L151,62 C151,62 166,58 183,62 L192,8 C192,8 164,3 143,8 Z" transform="translate(143, 8) rotate(-72) translate(-143, -8)     translate(-168, -88)" id="path2"></path></use>
-                                <use className={isHit("S8") ? "hit" : "singleRed"}>         <path d="M143,8 L151,62 C151,62 166,58 183,62 L192,8 C192,8 164,3 143,8 Z" transform="translate(143, 8) rotate(-108) translate(-143, -8)    translate(-183, -186)" id="path3"></path></use>
-                                <use className={isHit("S7") ? "hit" : "singleRed"}>         <path d="M143,8 L151,62 C151,62 166,58 183,62 L192,8 C192,8 164,3 143,8 Z" transform="translate(143, 8) rotate(-144) translate(-143, -8)    translate(-137.5, -275)" id="path4"></path></use>
-                                <use className={isHit("S3") ? "hit" : "singleRed"}>         <path d="M143,8 L151,62 C151,62 166,58 183,62 L192,8 C192,8 164,3 143,8 Z" transform="translate(143, 8) rotate(-180) translate(-143, -8)    translate(-48.5, -319)" id="path5"></path></use>
-                                <use className={isHit("S2") ? "hit" : "singleRed"}>         <path d="M143,8 L151,62 C151,62 166,58 183,62 L192,8 C192,8 164,3 143,8 Z" transform="translate(143, 8) rotate(-216) translate(-143, -8)    translate(49.5, -303)" id="path6"></path></use>
-                                <use className={isHit("S10") ? "hit" : "singleRed"}>        <path d="M143,8 L151,62 C151,62 166,58 183,62 L192,8 C192,8 164,3 143,8 Z" transform="translate(143, 8) rotate(-252) translate(-143, -8)    translate(119.5, -232)" id="path7"></path></use>
-                                <use className={isHit("S13") ? "hit" : "singleRed"}>        <path d="M143,8 L151,62 C151,62 166,58 183,62 L192,8 C192,8 164,3 143,8 Z" transform="translate(143, 8) rotate(72) translate(-143, -8)      translate(134.5, -134)" id="path8"></path></use>
-                                <use className={isHit("S18") ? "hit" : "singleRed"}>        <path d="M143,8 L151,62 C151,62 166,58 183,62 L192,8 C192,8 164,3 143,8 Z" transform="translate(143, 8) rotate(36) translate(-143, -8)      translate(89, -46)" id="path8"></path></use>
+                                <use className={isHit("SO14") ? "hit" : "singleRed"}>        <path d="M143,8 L151,62 C151,62 166,58 183,62 L192,8 C192,8 164,3 143,8 Z" transform="translate(143, 8) rotate(-72) translate(-143, -8)     translate(-168, -88)" id="path2"></path></use>
+                                <use className={isHit("SO8") ? "hit" : "singleRed"}>         <path d="M143,8 L151,62 C151,62 166,58 183,62 L192,8 C192,8 164,3 143,8 Z" transform="translate(143, 8) rotate(-108) translate(-143, -8)    translate(-183, -186)" id="path3"></path></use>
+                                <use className={isHit("SO7") ? "hit" : "singleRed"}>         <path d="M143,8 L151,62 C151,62 166,58 183,62 L192,8 C192,8 164,3 143,8 Z" transform="translate(143, 8) rotate(-144) translate(-143, -8)    translate(-137.5, -275)" id="path4"></path></use>
+                                <use className={isHit("SO3") ? "hit" : "singleRed"}>         <path d="M143,8 L151,62 C151,62 166,58 183,62 L192,8 C192,8 164,3 143,8 Z" transform="translate(143, 8) rotate(-180) translate(-143, -8)    translate(-48.5, -319)" id="path5"></path></use>
+                                <use className={isHit("SO2") ? "hit" : "singleRed"}>         <path d="M143,8 L151,62 C151,62 166,58 183,62 L192,8 C192,8 164,3 143,8 Z" transform="translate(143, 8) rotate(-216) translate(-143, -8)    translate(49.5, -303)" id="path6"></path></use>
+                                <use className={isHit("SO10") ? "hit" : "singleRed"}>        <path d="M143,8 L151,62 C151,62 166,58 183,62 L192,8 C192,8 164,3 143,8 Z" transform="translate(143, 8) rotate(-252) translate(-143, -8)    translate(119.5, -232)" id="path7"></path></use>
+                                <use className={isHit("SO13") ? "hit" : "singleRed"}>        <path d="M143,8 L151,62 C151,62 166,58 183,62 L192,8 C192,8 164,3 143,8 Z" transform="translate(143, 8) rotate(72) translate(-143, -8)      translate(134.5, -134)" id="path8"></path></use>
+                                <use className={isHit("SO18") ? "hit" : "singleRed"}>        <path d="M143,8 L151,62 C151,62 166,58 183,62 L192,8 C192,8 164,3 143,8 Z" transform="translate(143, 8) rotate(36) translate(-143, -8)      translate(89, -46)" id="path8"></path></use>
                                 
                                 </g>
                                 <g id="GreenTrebleSpiders" transform="translate(64.000000, 66.000000)">
