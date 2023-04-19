@@ -12,7 +12,6 @@ export const InitialiseGame = () => {
   const [doubleIn, setDoubleIn] = useState(false);
   const [doubleOut, setDoubleOut] = useState(true);
 
-
   const addPlayer = () => {
     setPlayer([...player, `Player${player.length + 1}`])
   }

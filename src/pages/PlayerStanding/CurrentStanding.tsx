@@ -10,7 +10,7 @@ export const CurrentStanding = (props) => {
 
   return (
     <div>
-        <IonCard id={true ? "currentPlayer" : "notCurrentPlayer"}>
+        <IonCard id={props.currentPlayer == props.id ? "currentPlayer" : "notCurrentPlayer"}>
         
       <IonCardHeader>
         <IonCardTitle>{props.name}</IonCardTitle>

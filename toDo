@@ -1,0 +1,26 @@
+30 min      10      FE bei Marc zum laufen bekommen
+180 min     6       Rapberry Pi
+180 min     2       Prototyp basteln
+
+BE:
+60 min      8       Spielerwechsel (Confidence berechnen)
+30 min      10      SetGameMode kommunikation FE zu BE (Double in, Double out)
+120 min     3       Kalibrierung anpassen von Kamera
+120 min     2       3 Kamera einbinden
+30 min      8       API bereitstellung Bild
+90 min      1       Sets and Legs
+120 min     9       Spielablauf (Gewinner, Finish Weg, Double Out, Double IN, Spielabbruch)
+30 min      7       Requirements.txt für intallation BE
+60 min      7       Healph (Status des BE Anwendung(was BE gerade macht)) & Ablauf von BE (bei start nur Websocket)
+
+FE:
+60 min      2       Beim start 3 Kamera initialisieren / kalibrieren
+30 min      8       Api für Kamera Bild abfragen
+90 min      1       Sets and Legs
+30 min      9       Spielablauf (Gewinner, ...)
+90 min      9       Kreuz Koordinaten
+180 min     10      CSS Magie (Hochformat / Querformat mit Virtualler scheibe)
+30 min      4       npm install anleitung / Verison überprüfen
+60 min      8       Start Game werte setzten
+90 min      8       Wechsel von Game und Settings, dass keine zusätzlichen APi Abfragen erfolgen
+60 min      3       Versionscheck (npm outdated / depckeck)

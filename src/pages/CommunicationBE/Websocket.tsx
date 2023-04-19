@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import io, { Socket } from "socket.io-client";
 import { VirtualDartBoard } from "../PlayerStanding/VirtaulDartBoard";
+import { CurrentStanding } from "../PlayerStanding/CurrentStanding";
 
 export interface gameInfo {
   player0: {
@@ -30,7 +31,7 @@ export interface gameInfo {
     finish_weg: [],
     average: Number
   },
-  player4: {
+  player2: {
     name: String,
     id: Number,
     spielstand: Number,
@@ -119,18 +120,15 @@ const lastThreeCoordsCurrentPlayer = () => {
   return (
     <div>
       {message ? (<div>
-
-        {/* {message.player0 == null ? <></> : <VirtualDartBoard result={lastThreeCurrentPlayer()} coordinates={lastThreeCoordsCurrentPlayer()} maxBEcoordsX={message.settings.x_max} maxBEcoordsY={message.settings.y_max}/>} */}
         <VirtualDartBoard result={lastThreeCurrentPlayer()} coordinates={lastThreeCoordsCurrentPlayer()} maxBEcoordsX={message.settings.x_max} maxBEcoordsY={message.settings.y_max}/>
-        
-      {/* <VirtualDartBoard result={lastThreeCurrentPlayer()} coordinates={lastThreeCoordsCurrentPlayer()} maxBEcoordsX={message.settings.x_max} maxBEcoordsY={message.settings.y_max}/> */}
-        
         <p>Received message: {JSON.stringify(message)}</p>
-        {/* {message.settings.playerCounter > 0 && <CurrentStanding id={"eins"} name={message.player0.name} currentScore={message.player0.spielstand} last3Point={message.player0.last_3} coordinaten={message.player0.cords} average={message.player0.average} />} */}
-        {/* {message.settings.playerCounter > 1 && <CurrentStanding id={"zwei"} name={message.player1.name} currentScore={message.player1.spielstand} last3Point={message.player1.last_3} coordinaten={message.player1.cords} average={message.player1.average} />} */}
-        {/* {message.settings.playerCounter > 2 && <CurrentStanding id={"drei"} name={message.player2.name} currentScore={message.player2.spielstand} last3Point={message.player2.last_3} coordinaten={message.player2.cords} average={message.player2.average} />}
-        {message.settings.playerCounter > 3 && <CurrentStanding id={"vier"} name={message.player3.name} currentScore={message.player3.spielstand} last3Point={message.player3.last_3} coordinaten={message.player3.cords} average={message.player3.average} />} */}
-        </div>
+        
+        {/* {message.settings.playerCounter > 0 && <CurrentStanding id={0} currentPlayer={message.settings.currentPlayer} name={message.player0.name} currentScore={message.player0.spielstand} last3Point={message.player0.last_3} coordinaten={message.player0.cords} average={message.player0.average} />}
+        {message.settings.playerCounter > 1 && <CurrentStanding id={1} currentPlayer={message.settings.currentPlayer} name={message.player1.name} currentScore={message.player1.spielstand} last3Point={message.player1.last_3} coordinaten={message.player1.cords} average={message.player1.average} />}
+        {message.settings.playerCounter > 2 && <CurrentStanding id={2} currentPlayer={message.settings.currentPlayer} name={message.player2.name} currentScore={message.player2.spielstand} last3Point={message.player2.last_3} coordinaten={message.player2.cords} average={message.player2.average} />}
+        {message.settings.playerCounter > 3 && <CurrentStanding id={3} currentPlayer={message.settings.currentPlayer} name={message.player3.name} currentScore={message.player3.spielstand} last3Point={message.player3.last_3} coordinaten={message.player3.cords} average={message.player3.average} />}
+        </div> */}
+        </div> 
       ) : (
         <p>Waiting for WebSocket message... {message}</p>
       )}

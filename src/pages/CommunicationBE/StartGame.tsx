@@ -46,7 +46,7 @@ export const StartGame = (props) => {
         .then(response => response.json());
   }
 
-  // apiCallSelectGameMode()
+  apiCallSelectGameMode()
   apiCallAddPlayer()
   apiCallStartDetection()
 

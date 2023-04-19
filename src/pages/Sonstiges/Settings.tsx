@@ -7,6 +7,30 @@ export const Settings = () => {
   const [currentRequest, setCurrentRequest] = useState("No Response");
   const [currentPOSTRequest, setCurrentPOSTRequest] = useState("");
 
+  const testt = {
+    "id": 2,
+    "name": "Ervin Howell",
+    "username": "Antonette",
+    "email": "Shanna@melissa.tv",
+    "address": {
+        "street": "Victor Plains",
+        "suite": "Suite 879",
+        "city": "Wisokyburgh",
+        "zipcode": "90566-7771",
+        "geo": {
+            "lat": "-43.9509",
+            "lng": "-34.4618"
+        }
+    },
+    "phone": "010-692-6593 x09125",
+    "website": "anastasia.net",
+    "company": {
+        "name": "Deckow-Crist",
+        "catchPhrase": "Proactive didactic contingency",
+        "bs": "synergize scalable supply-chains"
+    }
+}
+
   const apiGETSettingsCall = (callOption) => {
     const requestOptions = {
         method: "GET",
@@ -83,7 +107,11 @@ export const Settings = () => {
         <IonItem className='headline'>
           <IonLabel>Response</IonLabel>
         </IonItem>
-          {currentRequest != "" && <div className='presentAPIResult'>{currentRequest}</div>}
+          {/* {currentRequest != "" && <div className='presentAPIResult'>
+          <pre>{JSON.stringify(testt, null, 4)}</pre>
+          </div>} */}
+          {currentRequest != "" && <div className='presentAPIResult'>{currentRequest}
+          </div>}
         </IonList>
       </IonContent>
     </IonPage>
