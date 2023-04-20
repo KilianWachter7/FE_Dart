@@ -8,9 +8,9 @@ export const InitialiseGame = () => {
   const [newInitialisierung, setNewInitialisierung] = useState(false);
   const [startGame, setStartGame] = useState(false);
   const [player, setPlayer] = useState(["Player1"]);
-  const [score, setScore] = useState(301);
-  const [doubleIn, setDoubleIn] = useState(false);
-  const [doubleOut, setDoubleOut] = useState(true);
+  const [score, setScore] = useState("301");
+  const [doubleIn, setDoubleIn] = useState("No");
+  const [doubleOut, setDoubleOut] = useState("Yes");
 
   const addPlayer = () => {
     setPlayer([...player, `Player${player.length + 1}`])
@@ -41,6 +41,11 @@ export const InitialiseGame = () => {
     setPlayer(newArray)
   }
 
+  const settings = [{name: "Points", value: ["301","501"], var: score, func: setScore, message: popoverPoints},
+  {name: "Double In", value: ["Yes", "No"], var: doubleIn, func: setDoubleIn, message: popoverDoubleIn},
+  {name: "Double Out", value: ["Yes", "No"], var: doubleOut, func: setDoubleOut, message: popoverDoubleOut}]
+
+
   return (
   <div>
     {!newInitialisierung && !startGame && <IonButton onClick={() => setNewInitialisierung(true)}>New Game</IonButton>}
@@ -49,36 +54,22 @@ export const InitialiseGame = () => {
       <IonButton onClick={() => {
         setStartGame(true)
         setNewInitialisierung(false)}} disabled={false}>Start Game</IonButton>
-
-      <IonButton onClick={() => addPlayer()} disabled={player.length > 3 ? true : false}>Add Player</IonButton>
-      <IonButton onClick={() => removeLastPlayer() } disabled={player.length < 2 ? true : false}>Remove Player</IonButton>
     
       <IonList>
         <IonItem className='headline'>
           <IonLabel>Settings</IonLabel>
         </IonItem>
-        <IonItem>
-          <IonLabel>Points</IonLabel>
-          <IonSelect value={301} onIonChange={(ev) => setScore(ev.detail.value)} interfaceOptions={popoverPoints} interface="alert" placeholder="Select Points">
-            <IonSelectOption value={301}>301</IonSelectOption>
-            <IonSelectOption value={501}>501</IonSelectOption>
-          </IonSelect>
-        </IonItem>
-        <IonItem>
-          <IonLabel>Double In</IonLabel>
-          <IonSelect value={false} onIonChange={(ev) => setDoubleIn(ev.detail.value)} interfaceOptions={popoverDoubleIn} interface="alert" placeholder="Select Double In">
-            <IonSelectOption value={true}>Yes</IonSelectOption>
-            <IonSelectOption value={false}>No</IonSelectOption>
-          </IonSelect>
-        </IonItem>
-        <IonItem>
-          <IonLabel>Double Out</IonLabel>
-          <IonSelect value={true} onIonChange={(ev) => setDoubleOut(ev.detail.value)} interfaceOptions={popoverDoubleOut} interface="alert" placeholder="Select Double Out">
-          <IonSelectOption value={true}>Yes</IonSelectOption>
-            <IonSelectOption value={false}>No</IonSelectOption>
-          </IonSelect>
-        </IonItem>
+        {settings.map((valueSettings, indexSettings) =>
+        <IonItem key={indexSettings}>
+        <IonLabel>{valueSettings.name}</IonLabel>
+        <IonSelect value={valueSettings.var} onIonChange={(ev) => valueSettings.func((ev.detail.value))} interfaceOptions={valueSettings.message} interface="alert">
+        {valueSettings.value.map((valueValue, indexValue) => <IonSelectOption key={indexValue} value={valueValue}>{valueValue}</IonSelectOption> )}
+        </IonSelect>
+      </IonItem>)}
         </IonList>
+<br></br>
+      <IonButton onClick={() => addPlayer()} disabled={player.length > 3 ? true : false}>Add Player</IonButton>
+      <IonButton onClick={() => removeLastPlayer() } disabled={player.length < 2 ? true : false}>Remove Player</IonButton>
       
         <IonList>
         <IonItem className='headline'>

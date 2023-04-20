@@ -3,27 +3,61 @@ import { IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle, 
 import "./CurrentStanding.css"
 
 export const CurrentStanding = (props) => {
-    // name={"Kilian"} currentScore={301} am_zug={false} last_3={[20,3,7]} average={20.2}
-    // {message.settings.playerCounter > 0 && <CurrentStanding id={"eins"} name={message.player0.spieler} currentScore={message.player0.spielstand} last3Point={message.player0.last_3} coordinaten={message.player0.cords} average={message.player0.average} />}
+  const multiplier = ["Test", " ", "D ", "T "]
+  var array = [[26, null], [26, null], [26, null]]
+  var arrayFinish = [[26, null], [26, null], [26, null]]
 
-    const multiplier = ["Test","", "D ", "T "]
+
+  console.log("currentstanding", props)
+  
+  const hv = (arr, tohandle) => {
+    console.log("A.leng", arr.length)
+    for (let i = 0; i < arr.length; i++) {
+  console.log("currentstanding for loop", tohandle[i])
+
+      if (tohandle[i] != null) {
+        arr[i] = tohandle[i]
+      } else {
+        arr[i] = [26, null]
+      }
+    }
+    return arr
+  }
+
+  const hvVariable = hv(array, props.last3Point)
+  const hvVariableFinish = hv(arrayFinish, props.finish)
+
+  console.log("hvVariable", hvVariable)
 
   return (
     <div>
         <IonCard id={props.currentPlayer == props.id ? "currentPlayer" : "notCurrentPlayer"}>
         
-      <IonCardHeader>
-        <IonCardTitle>{props.name}</IonCardTitle>
-        <IonCardSubtitle>{props.currentScore}</IonCardSubtitle>
-      </IonCardHeader>
+      {/* <IonCardHeader>
+        <h1><span id='score'>{props.currentScore}</span> <span id='name'>{props.name}</span></h1>
+      </IonCardHeader> */}
 
       <IonCardContent>
+      <h1><span id='score'>{props.currentScore}</span> <span id='name'>{props.name}</span></h1>
       <IonGrid fixed={true}>
-      <IonRow>
-        {props.last3Point[0][0] != null && <IonCol>{multiplier[props.last3Point[0][1]]}{props.last3Point[0][0]}</IonCol>}
-        {props.last3Point[1][0] != null && <IonCol>{multiplier[props.last3Point[1][1]]}{props.last3Point[1][0]}</IonCol>}
-        {props.last3Point[2][0] != null && <IonCol>{multiplier[props.last3Point[2][1]]}{props.last3Point[2][0]}</IonCol>}
+        <IonRow>
+        <IonCol size="auto">
+            <div id={"column"} >Current throw:</div>
+          </IonCol>
+        {/* {hvVariable == undefined ? <></> : hvVariable.map((test) => test[0] != null && <IonCol><div id={"scoreValues"}>{multiplier[test[1]] && test[0]}</div></IonCol>)} */}
+        {hvVariable == undefined ? <></> : hvVariable.map((test) => (test[0] != 26 && test[1] != null) ? <IonCol><div id={"scoreValues"}>{multiplier[test[1]] + test[0]}</div></IonCol> : <IonCol><div id={"noScoreValues"}>-</div></IonCol>)}
+
         </IonRow>
+        {hvVariableFinish[0] == 26 &&
+        <IonRow>
+        <IonCol size="auto">
+            <div id={"column"}>Finish Way:</div>
+          </IonCol>
+        {hvVariableFinish == undefined ? <></> : hvVariableFinish.map((test) => (test[0] != 26 && test[1] != null) ? <IonCol><div id={"scoreValues"}>{multiplier[test[1]] + test[0]}</div></IonCol> : <IonCol><div id={"noScoreValues"}>-</div></IonCol>)}
+
+        {/* {props.finish.map((test) => test != null && test[0] != null && <IonCol><div id={"scoreValues"}>{multiplier[test[1]]}{test[0]}</div></IonCol>)} */}
+        </IonRow>
+}
       </IonGrid>
       Avaridge: {props.average}
       </IonCardContent>

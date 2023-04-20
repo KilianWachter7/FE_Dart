@@ -21,6 +21,9 @@ FE:
 90 min      9       Kreuz Koordinaten
 180 min     10      CSS Magie (Hochformat / Querformat mit Virtualler scheibe)
 30 min      4       npm install anleitung / Verison überprüfen
-60 min      8       Start Game werte setzten
+    60 min      8       Start Game werte setzten
 90 min      8       Wechsel von Game und Settings, dass keine zusätzlichen APi Abfragen erfolgen
 60 min      3       Versionscheck (npm outdated / depckeck)
+    30 min      9       Anpassen Kartnen dass auch weniger wie 3 Werte abgebildet werdn koennen
+30 min      9       Finish weg
+120 min     4       Dynamische Spieleranzahl
