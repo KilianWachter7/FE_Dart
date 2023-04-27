@@ -4,55 +4,49 @@
     color: #fff;
     text-align: center;
   } */
-  
-  #score{
-    color: #ff0000;
-    font-size: 34px;
-  }
-  #name{
-    color: #111010;
-    font-size: 34px;
-  }
-  
-  #currentPlayer {
-    --background: #17c3f8;
-  }
-  
-  #notCurrentPlayer
-  {
-    --background: #b0bbbb;
-  }
 
-  #column
-  {
-    padding-left: 10px;
-    background-color: #ed766b91;
-    color: #000;
-    height: auto;
-    width: 150px;
-    border: solid 1px #000;
-    text-align: left;
-    ;
-  }
+#score {
+  color: #ff0000;
+  font-size: 34px;
+}
+#name {
+  color: #111010;
+  font-size: 34px;
+}
 
-  #scoreValues
-  {
-    background-color: #2fffa59a;
-    color: #000000;
-    border: solid 1px #fff;
-    text-align: center;
-    
-  }
+#currentPlayer {
+  --background: #17c3f8;
+}
 
-  #noScoreValues
-  {
-    background-color: #2fffa52c;
-    color: #000000;
-    border: solid 1px #fff;
-    text-align: center;
-  }
-  
-  /* ion-card-title {
+#notCurrentPlayer {
+  --background: #b0bbbb;
+}
+
+#column {
+  padding-left: 10px;
+  background-color: #ed766b91;
+  color: #000;
+  height: auto;
+  width: 150px;
+  border: solid 1px #000;
+  text-align: left;
+}
+
+#scoreValues {
+  background-color: #2fffa59a;
+  color: #000000;
+  border: solid 1px #fff;
+  text-align: center;
+}
+
+#noScoreValues {
+  background-color: #2fffa52c;
+  color: #000000;
+  border: solid 1px #fff;
+  text-align: center;
+}
+
+/* ion-card-title {
     --color: #52ffe4;
   }
   

@@ -1,0 +1,16 @@
+.container {
+  /* display: flex;
+  flex-wrap: wrap; */
+}
+
+.item {
+  /* flex: 1; */
+  /* max-width: 500px; */
+  /* width: 400px; */
+}
+
+.test {
+  /* flex: 1; */
+  /* max-width: 500px; */
+  /* background-color: blue; */
+}
