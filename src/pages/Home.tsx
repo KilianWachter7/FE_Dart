@@ -70,7 +70,7 @@ export const Home = () => {
 
   calculateContentHeight();
 
-  console.log("Aufruf Home", heightContent);
+  // console.log("Aufruf Home", heightContent);
   return (
     <IonPage>
       <IonHeader>

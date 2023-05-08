@@ -4,8 +4,8 @@ import { Websocket } from "./Websocket";
 import "./StartGame.css";
 
 export const StartGame = (props) => {
+  // console.log("Aufruf StartGame", props);
   let hostname = location.hostname;
-  console.log("Aufruf StartGame", props);
   const [gameStart, setGameStart] = useState(false);
   const [images, setImages] = useState("");
   const [bilder, setBilder] = useState([]);

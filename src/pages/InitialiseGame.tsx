@@ -10,10 +10,12 @@ import {
 import React, { useState } from "react";
 import { StartGame } from "./CommunicationBE/StartGame";
 import "./InitialiseGame.css";
+import { Websocket } from "./CommunicationBE/Websocket";
 
 export const InitialiseGame = (props) => {
-  console.log("Aufruf InitialiseGame", props);
+  // console.log("Aufruf InitialiseGame", props);
   const [newInitialisierung, setNewInitialisierung] = useState(false);
+  const [joinGame, setJoinGame] = useState(false);
   const [startGame, setStartGame] = useState(false);
   const [player, setPlayer] = useState(["Player1"]);
   const [score, setScore] = useState("301");
@@ -93,11 +95,17 @@ export const InitialiseGame = (props) => {
 
   return (
     <div>
-      {!newInitialisierung && !startGame && (
+      {!newInitialisierung && !startGame && !joinGame && (
         <IonButton onClick={() => setNewInitialisierung(true)}>
           New Game
         </IonButton>
       )}
+      {!joinGame && !newInitialisierung && !startGame && (
+        <IonButton onClick={() => setJoinGame(true)}>
+          Join Current Game
+        </IonButton>
+      )}
+      {joinGame && <Websocket heightContent={props.heightContent} />}
       {newInitialisierung && (
         <>
           <IonButton

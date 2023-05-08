@@ -73,14 +73,15 @@ export interface gameInfo {
 }
 
 export const Websocket = (props) => {
-  console.log("Aufruf Websocket", props);
+  // console.log("Aufruf Websocket", props);
 
   const [socket, setSocket] = useState<Socket | null>(null);
   const [message, setMessage] = useState<gameInfo>();
   const cc = { cors: { origin: "http://localhost:3000" } };
+  let hostname = location.hostname;
 
   useEffect(() => {
-    const socket = io("http://192.168.0.214:5001/", {
+    const socket = io(`http://${hostname}:5001/`, {
       transports: ["websocket"],
       // cors: { origin: "http://localhost:3000" },
     });

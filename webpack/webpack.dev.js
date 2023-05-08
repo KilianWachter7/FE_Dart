@@ -18,8 +18,11 @@ for (const name of Object.keys(nets)) {
     }
   }
 }
-console.log("Hostname:", results["en0"][0]);
-const hostname = results["en0"][0];
+
+// Mac
+// const hostname = results["en0"][0];
+// Pi
+const hostname = results["wlan"][0];
 
 module.exports = merge(common, {
   mode: "development",
