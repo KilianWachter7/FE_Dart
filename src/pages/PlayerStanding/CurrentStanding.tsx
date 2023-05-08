@@ -50,10 +50,35 @@ export const CurrentStanding = (props) => {
       </IonCardHeader> */}
 
         <IonCardContent>
-          <h1>
-            <span id="score">{props.currentScore}</span>{" "}
-            <span id="name">{props.name}</span>
-          </h1>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "space-between",
+            }}
+          >
+            <h1>
+              <span id="score">{props.currentScore}</span>{" "}
+              <span id="name">{props.name}</span>
+            </h1>
+            <div>
+              <IonGrid>
+                <IonRow>
+                  <IonCol size="auto">
+                    <h1>S:{props.sets}</h1>
+                  </IonCol>
+                  <IonCol size="auto">
+                    <h1>L:{props.legs}</h1>
+                  </IonCol>
+                  <IonCol size="auto">
+                    <h1>
+                      {"\u00F8"}:{props.average}
+                    </h1>
+                  </IonCol>
+                </IonRow>
+              </IonGrid>
+            </div>
+          </div>
           <IonGrid fixed={true}>
             <IonRow>
               <IonCol size="auto">
@@ -78,34 +103,21 @@ export const CurrentStanding = (props) => {
                 )
               )}
             </IonRow>
-            {hvVariableFinish[0] == 26 && (
+            {props.finish[0] != null && (
               <IonRow>
                 <IonCol size="auto">
                   <div id={"column"}>Finish Way:</div>
                 </IonCol>
-                {hvVariableFinish == undefined ? (
-                  <></>
-                ) : (
-                  hvVariableFinish.map((test) =>
-                    test[0] != 26 && test[1] != null ? (
-                      <IonCol>
-                        <div id={"scoreValues"}>
-                          {multiplier[test[1]] + test[0]}
-                        </div>
-                      </IonCol>
-                    ) : (
-                      <IonCol>
-                        <div id={"noScoreValues"}>-</div>
-                      </IonCol>
-                    )
-                  )
-                )}
+                {props.finish.map((value) => (
+                  <IonCol>
+                    <div id={"scoreValues"}>{value}</div>
+                  </IonCol>
+                ))}
 
                 {/* {props.finish.map((test) => test != null && test[0] != null && <IonCol><div id={"scoreValues"}>{multiplier[test[1]]}{test[0]}</div></IonCol>)} */}
               </IonRow>
             )}
           </IonGrid>
-          Avaridge: {props.average}
         </IonCardContent>
       </IonCard>
     </div>

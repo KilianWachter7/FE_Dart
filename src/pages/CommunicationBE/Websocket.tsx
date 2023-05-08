@@ -4,6 +4,7 @@ import { VirtualDartBoard } from "../PlayerStanding/VirtaulDartBoard";
 import { CurrentStanding } from "../PlayerStanding/CurrentStanding";
 // import "./StartGame.css";
 import { Score } from "./Score";
+import { settings } from "ionicons/icons";
 
 export interface gameInfo {
   // player0: {
@@ -76,14 +77,15 @@ export const Websocket = (props) => {
 
   const [socket, setSocket] = useState<Socket | null>(null);
   const [message, setMessage] = useState<gameInfo>();
+  const cc = { cors: { origin: "http://localhost:3000" } };
 
   useEffect(() => {
-    const socket = io("localhost:5001/", {
+    const socket = io("http://192.168.0.214:5001/", {
       transports: ["websocket"],
-      // cors: {
-      //   origin: "http://localhost:3000/",
-      // },
+      // cors: { origin: "http://localhost:3000" },
     });
+
+    // test
 
     socket.on("connect", () => {
       console.log("Connected to WebSocket server");
@@ -120,7 +122,6 @@ export const Websocket = (props) => {
   };
   const divStyle = {
     flex: "1",
-    backgroundColor: "gray",
     maxWidth: isPortrait ? "100%" : "auto",
     align: "center",
   };
@@ -145,13 +146,15 @@ export const Websocket = (props) => {
                 return (
                   <CurrentStanding
                     id={value.id}
-                    currentPlayer={value.currentPlayer}
+                    currentPlayer={message.settings.currentPlayer}
                     name={value.name}
                     currentScore={value.spielstand}
                     finish={value.finish_weg}
                     last3Point={value.last_3}
                     coordinaten={value.cords}
                     average={value.average}
+                    sets={value.sets}
+                    legs={value.legs}
                   />
                 );
               } else {

@@ -13,20 +13,16 @@ import React, { useEffect, useRef, useState } from "react";
 import { InitialiseGame } from "./InitialiseGame";
 
 export const Home = () => {
-  const [windowSize, setWindowSize] = useState({
-    width: window.innerWidth,
-    height: window.innerHeight,
-  });
+  let hostname = location.hostname;
+  const [gameInfo, setGameInfo] = useState("");
+  const handleChildData = (data) => {
+    setGameInfo(data);
+  };
 
   useEffect(() => {
     function handleResize() {
-      setWindowSize({
-        width: window.innerWidth,
-        height: window.innerHeight,
-      });
       calculateContentHeight();
     }
-
     window.addEventListener("resize", handleResize);
 
     return () => window.removeEventListener("resize", handleResize);
@@ -42,7 +38,7 @@ export const Home = () => {
       headers: { "Content-Type": "application/json" },
     };
     fetch(
-      "http://localhost:5001/api/submitthrow",
+      `http://${hostname}:5001/api/submitthrow`,
       requestOptions
     ).then((response) => response.json());
   };
@@ -56,7 +52,6 @@ export const Home = () => {
       var style = window.getComputedStyle(element);
       var width = style.getPropertyValue("--padding-top");
       var stingtoInt = +width.substring(0, width.length - 2);
-      console.log("Home padding", stingtoInt);
       return stingtoInt;
     }
     return 2;
@@ -67,17 +62,15 @@ export const Home = () => {
     if (elementRef.current) {
       const height = elementRef.current.getBoundingClientRect().height;
       const hv = height - hvv;
-      console.log("Home height", height, "height - padding", hv);
-
-      setHeightContent(hv);
+      if (height != 0) {
+        setHeightContent(hv);
+      }
     }
   };
 
-  //  ########
+  calculateContentHeight();
 
-  // ########
-
-  console.log("Aufruf Home");
+  console.log("Aufruf Home", heightContent);
   return (
     <IonPage>
       <IonHeader>
@@ -86,6 +79,7 @@ export const Home = () => {
             <IonGrid>
               <IonRow style={{ display: "flex", alignItems: "center" }}>
                 <IonCol>Dart Game</IonCol>
+                <IonCol>{gameInfo}</IonCol>
                 <IonCol size="auto">
                   <IonButton onClick={() => apiCallSubmitThrow()}>
                     Submit Throw
@@ -98,7 +92,10 @@ export const Home = () => {
         </IonToolbar>
       </IonHeader>
       <IonContent ref={elementRef} id={"testCSS"} className="ion-padding">
-        <InitialiseGame heightContent={heightContent} />
+        <InitialiseGame
+          onChildData={handleChildData}
+          heightContent={heightContent}
+        />
       </IonContent>
     </IonPage>
   );

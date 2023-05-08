@@ -5,17 +5,39 @@ import { DartPosition } from "./DartPosition";
 export const VirtualDartBoard = (props) => {
   const currentWindowWidth = props.currenElementWidth;
   const schwarzerRand = currentWindowWidth * 0.12235649546827795;
-  const coorMax = currentWindowWidth;
 
   const calculateCoordsX = (coord) => {
-    return (
-      (coord / props.maxBEcoordsX) * coorMax * 0.755287105 + schwarzerRand - 10
-    );
+    coord = coord - 60;
+
+    if (coord > 680) {
+      console.log("auserhalb");
+    } else if (coord < 0) {
+      console.log("auserhalb");
+    } else {
+      coord =
+        (coord / (props.maxBEcoordsX - 120)) *
+          currentWindowWidth *
+          0.755287105 +
+        schwarzerRand -
+        10;
+    }
+    return coord;
   };
   const calculateCoordsY = (coord) => {
-    return (
-      (coord / props.maxBEcoordsY) * coorMax * 0.755287105 + schwarzerRand - 10
-    );
+    coord = coord - 60;
+    if (coord > 680) {
+      console.log("auserhalb");
+    } else if (coord < 0) {
+      console.log("auserhalb");
+    } else {
+      coord =
+        (coord / (props.maxBEcoordsY - 120)) *
+          currentWindowWidth *
+          0.755287105 +
+        schwarzerRand -
+        10;
+    }
+    return coord;
   };
 
   const multii = ["Test", "SO", "D", "T", "SB", "B"];
@@ -121,6 +143,7 @@ export const VirtualDartBoard = (props) => {
         viewBox="0 0 455 455"
         version="1.1"
         xmlns="http://www.w3.org/2000/svg"
+        xmlnsXlink="http://www.w3.org/1999/xlink"
       >
         <title>dartboard</title>
         <desc>Created with Sketch.</desc>

@@ -17,8 +17,14 @@ export const InitialiseGame = (props) => {
   const [startGame, setStartGame] = useState(false);
   const [player, setPlayer] = useState(["Player1"]);
   const [score, setScore] = useState("301");
-  const [doubleIn, setDoubleIn] = useState("No");
+  const [sets, setSets] = useState("1");
+  const [legs, setLegs] = useState("1");
   const [doubleOut, setDoubleOut] = useState("Yes");
+
+  const sendDataToParent = () => {
+    const data = `Mode: ${score} S: ${sets} L: ${legs}`;
+    props.onChildData(data);
+  };
 
   const addPlayer = () => {
     setPlayer([...player, `Player${player.length + 1}`]);
@@ -33,9 +39,14 @@ export const InitialiseGame = (props) => {
     message: "Choose the Points you want to play",
   };
 
-  const popoverDoubleIn = {
-    header: "Double In",
-    message: "Do you want to start the game with a double?",
+  const popoverSets = {
+    header: "Sets",
+    message: "How many sets do you want to play?",
+  };
+
+  const popoverLegs = {
+    header: "Legs",
+    message: "How many legs do you want to play?",
   };
 
   const popoverDoubleOut = {
@@ -58,11 +69,18 @@ export const InitialiseGame = (props) => {
       message: popoverPoints,
     },
     {
-      name: "Double In",
-      value: ["Yes", "No"],
-      var: doubleIn,
-      func: setDoubleIn,
-      message: popoverDoubleIn,
+      name: "Sets",
+      value: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"],
+      var: sets,
+      func: setSets,
+      message: popoverSets,
+    },
+    {
+      name: "Legs",
+      value: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"],
+      var: legs,
+      func: setLegs,
+      message: popoverLegs,
     },
     {
       name: "Double Out",
@@ -84,6 +102,7 @@ export const InitialiseGame = (props) => {
         <>
           <IonButton
             onClick={() => {
+              sendDataToParent();
               setStartGame(true);
               setNewInitialisierung(false);
             }}
@@ -153,7 +172,8 @@ export const InitialiseGame = (props) => {
           heightContent={props.heightContent}
           player={player}
           points={score}
-          doubleIn={doubleIn}
+          sets={sets}
+          legs={legs}
           doubleOut={doubleOut}
         />
       )}

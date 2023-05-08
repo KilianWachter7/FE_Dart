@@ -24,7 +24,10 @@ export const Settings = () => {
       method: "GET",
       headers: { "Content-Type": "application/json" },
     };
-    fetch(`http://localhost:5001/api/${callOption}`, requestOptions)
+    fetch(
+      `http://MacBook-Air-von-Kilian.local:5001/api/${callOption}`,
+      requestOptions
+    )
       .then((response) => response.json())
       .then((result) => setCurrentRequest(result))
       .catch((error) => {
@@ -39,7 +42,10 @@ export const Settings = () => {
       headers: { "Content-Type": "application/json" },
       body: currentPOSTRequest,
     };
-    fetch(`http://localhost:5001/api/${callOption}`, requestOptions)
+    fetch(
+      `http://MacBook-Air-von-Kilian.local:5001/api/${callOption}`,
+      requestOptions
+    )
       .then((response) => response.json())
       .then((result) => setCurrentRequest(result))
       .catch((error) => {
