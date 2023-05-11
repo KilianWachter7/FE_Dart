@@ -18,16 +18,14 @@ import "./Settings.css";
 export const Settings = () => {
   const [currentRequest, setCurrentRequest] = useState({});
   const [currentPOSTRequest, setCurrentPOSTRequest] = useState("");
+  let hostname = location.hostname;
 
   const apiGETSettingsCall = (callOption) => {
     const requestOptions = {
       method: "GET",
       headers: { "Content-Type": "application/json" },
     };
-    fetch(
-      `http://MacBook-Air-von-Kilian.local:5001/api/${callOption}`,
-      requestOptions
-    )
+    fetch(`http://${hostname}:5001/api/${callOption}`, requestOptions)
       .then((response) => response.json())
       .then((result) => setCurrentRequest(result))
       .catch((error) => {
@@ -42,10 +40,7 @@ export const Settings = () => {
       headers: { "Content-Type": "application/json" },
       body: currentPOSTRequest,
     };
-    fetch(
-      `http://MacBook-Air-von-Kilian.local:5001/api/${callOption}`,
-      requestOptions
-    )
+    fetch(`http://${hostname}:5001/api/${callOption}`, requestOptions)
       .then((response) => response.json())
       .then((result) => setCurrentRequest(result))
       .catch((error) => {
