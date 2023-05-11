@@ -22,7 +22,7 @@ for (const name of Object.keys(nets)) {
 // Mac
 // const hostname = results["en0"][0];
 // Pi
-const hostname = results["wlan"][0];
+const hostname = results["wlan0"][0];
 
 module.exports = merge(common, {
   mode: "development",

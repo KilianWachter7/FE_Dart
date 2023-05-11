@@ -30,6 +30,14 @@ export const Home = () => {
 
   const reloadPage = () => {
     window.location.reload();
+    const requestOptions = {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+    };
+    fetch(
+      `http://${hostname}:5001/api/resetgaminfo`,
+      requestOptions
+    ).then((response) => response.json());
   };
 
   const apiCallSubmitThrow = () => {
